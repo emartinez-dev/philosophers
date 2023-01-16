@@ -6,7 +6,7 @@
 /*   By: franmart <franmart@student.42malaga.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/11 09:55:27 by franmart          #+#    #+#             */
-/*   Updated: 2023/01/16 10:29:02 by franmart         ###   ########.fr       */
+/*   Updated: 2023/01/16 12:56:18 by franmart         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,9 +30,9 @@ typedef struct s_philo
 	time_t			time_last_meal;
 	time_t			start_time;
 	int				stop;
-	pthread_mutex_t lock_print;
 	pthread_mutex_t *l_fork;
 	pthread_mutex_t *r_fork;
+	t_args			*args;
 }	t_philo;
 
 

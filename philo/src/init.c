@@ -6,7 +6,7 @@
 /*   By: franmart <franmart@student.42malaga.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/16 10:27:11 by franmart          #+#    #+#             */
-/*   Updated: 2023/01/16 10:27:36 by franmart         ###   ########.fr       */
+/*   Updated: 2023/01/16 12:56:45 by franmart         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,7 @@ void	init_philos(t_args *args)
 		philos[i].stop = 0;
 		philos[i].l_fork = &args->forks[i];
 		philos[i].r_fork = &args->forks[(i + 1) % args->n_philos];
+		philos[i].args = args;
 	}
 	args->philos = philos;
 }
