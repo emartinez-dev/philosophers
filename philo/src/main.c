@@ -6,7 +6,7 @@
 /*   By: franmart <franmart@student.42malaga.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/11 10:00:25 by franmart          #+#    #+#             */
-/*   Updated: 2023/01/16 10:03:43 by franmart         ###   ########.fr       */
+/*   Updated: 2023/01/16 10:29:26 by franmart         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,8 @@ int	main(int argc, char **argv)
 	if (argc != 5 && argc != 6)
 		return (1);
 	parse_args(argc, argv, &args);
+	init_forks(&args);
+	init_philos(&args);
 	printf("%d %d %d %d %d\n", args.n_philos, args.die_time, args.eat_time, args.sleep_time, args.eat_limit);
 	return (0);
 }

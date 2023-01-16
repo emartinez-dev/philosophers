@@ -6,7 +6,7 @@
 /*   By: franmart <franmart@student.42malaga.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/11 09:55:27 by franmart          #+#    #+#             */
-/*   Updated: 2023/01/16 09:59:04 by franmart         ###   ########.fr       */
+/*   Updated: 2023/01/16 10:29:02 by franmart         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,10 @@ typedef struct s_args
 
 int				secure_atoi(char *atoi_nbr);
 void			parse_args(int argc, char **argv, t_args *philo);
+void			init_forks(t_args *args);
+void			init_philos(t_args *args);
 
+time_t			ft_now(void);
 int				ft_atoi(const char *nptr);
 char			*ft_itoa(int n);
 unsigned int	ft_strlen(const char *s);

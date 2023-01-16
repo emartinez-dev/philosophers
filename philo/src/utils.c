@@ -6,11 +6,19 @@
 /*   By: franmart <franmart@student.42malaga.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/11 10:15:05 by franmart          #+#    #+#             */
-/*   Updated: 2023/01/11 10:39:53 by franmart         ###   ########.fr       */
+/*   Updated: 2023/01/16 10:16:40 by franmart         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/philo.h"
+
+time_t	ft_now(void)
+{
+	struct timeval	now;
+
+	gettimeofday(&now, NULL);
+	return (now.tv_usec);
+}
 
 unsigned int	ft_strlen(const char *s)
 {
