@@ -6,7 +6,7 @@
 /*   By: franmart <franmart@student.42malaga.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/11 09:55:27 by franmart          #+#    #+#             */
-/*   Updated: 2023/01/17 10:30:54 by franmart         ###   ########.fr       */
+/*   Updated: 2023/01/17 11:26:26 by franmart         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,6 +68,7 @@ void			parse_args(int argc, char **argv, t_args *philo);
 void			init_forks(t_args *args);
 void			init_philos(t_args *args);
 void			init_threads(t_args *args);
+void			end_threads(t_args *args);
 void			*philo_routine(void *arg);
 void			think(t_philo *philo);
 void			eat(t_philo *philo);

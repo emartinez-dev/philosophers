@@ -6,7 +6,7 @@
 /*   By: franmart <franmart@student.42malaga.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/17 09:46:43 by franmart          #+#    #+#             */
-/*   Updated: 2023/01/17 10:32:00 by franmart         ###   ########.fr       */
+/*   Updated: 2023/01/17 11:27:07 by franmart         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,8 +21,6 @@ void	*philo_routine(void *arg)
 	philo->time_last_meal = ft_now();
 	while (philo->stop == 0)
 	{
-		if (philo->eat_n_times > 0 && philo->eat_n_times >= philo->args->eat_limit)
-			break;
 		take_forks(philo);
 		eat(philo);
 		ph_sleep(philo);

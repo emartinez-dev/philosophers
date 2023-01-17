@@ -6,7 +6,7 @@
 /*   By: franmart <franmart@student.42malaga.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/16 10:27:11 by franmart          #+#    #+#             */
-/*   Updated: 2023/01/17 10:31:48 by franmart         ###   ########.fr       */
+/*   Updated: 2023/01/17 11:20:27 by franmart         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,4 +56,13 @@ void	init_threads(t_args *args)
 	{
 		pthread_create(&args->thread_ids[i], 0, philo_routine, &args->philos[i]);
 	}
+}
+
+void	end_threads(t_args *args)
+{
+	int	i;
+
+	i = -1;
+	while (++i < args->n_philos)
+		pthread_join(args->thread_ids[i], NULL);
 }
