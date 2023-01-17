@@ -6,13 +6,13 @@
 #    By: franmart <franmart@student.42malaga.com>   +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/01/11 08:35:59 by franmart          #+#    #+#              #
-#    Updated: 2023/01/17 09:46:57 by franmart         ###   ########.fr        #
+#    Updated: 2023/01/17 11:11:58 by franmart         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = philo
 
-CC = gcc
+CC = gcc -g3
 FLAGS = -Wall -Wextra -Werror
 INCLUDES = -pthread
 RM = rm -rf
@@ -29,7 +29,7 @@ SRC = ${addprefix ${SRC_DIR}, ${_SRC}}
 OBJ = ${SRC:.c=.o}
 
 ${NAME}: ${OBJ}
-	$(CC) $(OBJ) -o $(NAME) $(INCLUDES)
+	$(CC) $(OBJ) -o $(NAME) $(INCLUDES) -g3
 	@echo "$(NAME) compiled!"
 
 %.o: %.c
