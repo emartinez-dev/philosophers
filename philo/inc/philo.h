@@ -6,7 +6,7 @@
 /*   By: franmart <franmart@student.42malaga.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/11 09:55:27 by franmart          #+#    #+#             */
-/*   Updated: 2023/01/16 12:56:18 by franmart         ###   ########.fr       */
+/*   Updated: 2023/01/17 10:30:54 by franmart         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,12 +23,23 @@
 # define SLEEP 0
 # define THINK 1
 # define EAT 2
+# define FORK 3
+# define DEAD 4
+
+# define SLEEP_STR "is sleeping\n"
+# define THINK_STR "is thinking\n"
+# define EAT_STR "is eating\n"
+# define FORK_STR "has taken a fork\n"
+# define DEAD_STR "died\n"
+
+typedef struct s_args t_args;
 
 typedef struct s_philo
 {
 	int				philo_id;
 	time_t			time_last_meal;
 	time_t			start_time;
+	int				eat_n_times;
 	int				stop;
 	pthread_mutex_t *l_fork;
 	pthread_mutex_t *r_fork;
@@ -42,6 +53,7 @@ typedef struct s_args
 	int				die_time;
 	int				eat_time;
 	int				sleep_time;
+	int				think_time;
 	int				dead;
 	int				eat_limit;
 	time_t			start_time;
@@ -55,6 +67,13 @@ int				secure_atoi(char *atoi_nbr);
 void			parse_args(int argc, char **argv, t_args *philo);
 void			init_forks(t_args *args);
 void			init_philos(t_args *args);
+void			init_threads(t_args *args);
+void			*philo_routine(void *arg);
+void			think(t_philo *philo);
+void			eat(t_philo *philo);
+void			ph_sleep(t_philo *philo);
+void			take_forks(t_philo *philo);
+void			print_action(t_philo *philo, char *action);
 
 time_t			ft_now(void);
 int				ft_atoi(const char *nptr);

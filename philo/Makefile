@@ -6,7 +6,7 @@
 #    By: franmart <franmart@student.42malaga.com>   +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/01/11 08:35:59 by franmart          #+#    #+#              #
-#    Updated: 2023/01/16 10:28:07 by franmart         ###   ########.fr        #
+#    Updated: 2023/01/17 09:46:57 by franmart         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -22,6 +22,7 @@ _SRC =	main.c\
 		utils.c\
 		parser.c\
 		ft_itoa.c\
+		routine.c\
 		init.c
 
 SRC = ${addprefix ${SRC_DIR}, ${_SRC}}

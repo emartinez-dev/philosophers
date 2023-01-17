@@ -6,7 +6,7 @@
 /*   By: franmart <franmart@student.42malaga.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/11 10:00:25 by franmart          #+#    #+#             */
-/*   Updated: 2023/01/16 10:29:26 by franmart         ###   ########.fr       */
+/*   Updated: 2023/01/17 10:26:09 by franmart         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,5 +22,6 @@ int	main(int argc, char **argv)
 	init_forks(&args);
 	init_philos(&args);
 	printf("%d %d %d %d %d\n", args.n_philos, args.die_time, args.eat_time, args.sleep_time, args.eat_limit);
+	init_threads(&args);
 	return (0);
 }
