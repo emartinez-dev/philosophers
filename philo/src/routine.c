@@ -6,7 +6,7 @@
 /*   By: franmart <franmart@student.42malaga.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/17 09:46:43 by franmart          #+#    #+#             */
-/*   Updated: 2023/01/17 11:27:07 by franmart         ###   ########.fr       */
+/*   Updated: 2023/01/17 15:36:59 by franmart         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,12 +19,22 @@ void	*philo_routine(void *arg)
 	philo = (t_philo *)arg;
 	philo->start_time = ft_now();
 	philo->time_last_meal = ft_now();
-	while (philo->stop == 0)
+	while (philo->args->dead == 0)
 	{
+		if (philo->args->dead == 1 || philo->stop == 1 || all_eate(philo->args))
+			return (NULL);
 		take_forks(philo);
+		if (philo->args->dead == 1 || philo->stop == 1 || all_eate(philo->args))
+			return (NULL);
 		eat(philo);
+		if (philo->args->dead == 1 || philo->stop == 1 || all_eate(philo->args))
+			return (NULL);
 		ph_sleep(philo);
+		if (philo->args->dead == 1 || philo->stop == 1 || all_eate(philo->args))
+			return (NULL);
 		think(philo);
+		if (philo->args->dead == 1 || philo->stop == 1 || all_eate(philo->args))
+			return (NULL);
 	}
 	philo->stop = 1;
 	return (NULL);
@@ -50,7 +60,7 @@ void	eat(t_philo *philo)
 {
 	print_action(philo, EAT_STR);
 	philo->eat_n_times++;
-	philo->time_last_meal = ft_now();
+	philo->time_last_meal = ft_now() - philo->start_time;
 	usleep(philo->args->eat_time * 1000);
 	pthread_mutex_unlock(philo->l_fork);
 	pthread_mutex_unlock(philo->r_fork);

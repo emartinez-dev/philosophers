@@ -6,7 +6,7 @@
 /*   By: franmart <franmart@student.42malaga.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/11 09:55:27 by franmart          #+#    #+#             */
-/*   Updated: 2023/01/17 11:26:26 by franmart         ###   ########.fr       */
+/*   Updated: 2023/01/17 15:40:27 by franmart         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,6 +75,8 @@ void			eat(t_philo *philo);
 void			ph_sleep(t_philo *philo);
 void			take_forks(t_philo *philo);
 void			print_action(t_philo *philo, char *action);
+int				all_eate(t_args *args);
+void			*philo_waiter(void *arg);
 
 time_t			ft_now(void);
 int				ft_atoi(const char *nptr);
