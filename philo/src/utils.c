@@ -6,18 +6,19 @@
 /*   By: franmart <franmart@student.42malaga.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/11 10:15:05 by franmart          #+#    #+#             */
-/*   Updated: 2023/01/16 10:16:40 by franmart         ###   ########.fr       */
+/*   Updated: 2023/01/18 07:52:37 by franmart         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/philo.h"
 
+/* Gets the actual time of the day in ms */
 time_t	ft_now(void)
 {
 	struct timeval	now;
 
 	gettimeofday(&now, NULL);
-	return (now.tv_usec);
+	return (1000 * now.tv_sec + now.tv_usec / 1000);
 }
 
 unsigned int	ft_strlen(const char *s)
