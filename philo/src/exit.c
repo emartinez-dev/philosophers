@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   end.c                                              :+:      :+:    :+:   */
+/*   exit.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: franmart <franmart@student.42malaga.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/18 11:05:33 by franmart          #+#    #+#             */
-/*   Updated: 2023/01/18 11:08:23 by franmart         ###   ########.fr       */
+/*   Updated: 2023/01/18 12:06:46 by franmart         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,8 @@ void	end_mutex(t_args *args)
 
 void	free_philo(t_args *args)
 {
-	free(args->forks);
 	free(args->philos);
 	free(args->thread_ids);
+	if (args->n_philos == 1)
+		free(args->forks);
 }
