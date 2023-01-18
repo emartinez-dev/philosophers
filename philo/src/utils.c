@@ -6,7 +6,7 @@
 /*   By: franmart <franmart@student.42malaga.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/11 10:15:05 by franmart          #+#    #+#             */
-/*   Updated: 2023/01/18 07:52:37 by franmart         ###   ########.fr       */
+/*   Updated: 2023/01/18 11:44:31 by franmart         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,7 +83,9 @@ int	secure_atoi(char *atoi_nbr)
 	if (ft_strncmp(atoi_nbr, str_number, ft_strlen(atoi_nbr)) != 0)
 	{
 		printf("Error: Input %s is not a valid integer.\n", atoi_nbr);
+		free(str_number);
 		exit(1);
 	}
+	free(str_number);
 	return (number);
 }
