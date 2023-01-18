@@ -6,7 +6,7 @@
 /*   By: franmart <franmart@student.42malaga.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/17 09:46:43 by franmart          #+#    #+#             */
-/*   Updated: 2023/01/18 11:41:40 by franmart         ###   ########.fr       */
+/*   Updated: 2023/01/18 13:03:16 by franmart         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,19 +20,19 @@ void	*philo_routine(void *arg)
 	philo->time_last_meal = ft_now();
 	while (philo->args->dead == 0)
 	{
-		if (philo->args->dead == 1 || philo->stop == 1 || all_eate(philo->args))
+		if (philo->args->dead == 1 || philo->stop == 1 || all_ate(philo->args))
 			return (NULL);
 		take_forks(philo);
-		if (philo->args->dead == 1 || philo->stop == 1 || all_eate(philo->args))
+		if (philo->args->dead == 1 || philo->stop == 1 || all_ate(philo->args))
 			return (NULL);
 		eat(philo);
-		if (philo->args->dead == 1 || philo->stop == 1 || all_eate(philo->args))
+		if (philo->args->dead == 1 || philo->stop == 1 || all_ate(philo->args))
 			return (NULL);
 		ph_sleep(philo);
-		if (philo->args->dead == 1 || philo->stop == 1 || all_eate(philo->args))
+		if (philo->args->dead == 1 || philo->stop == 1 || all_ate(philo->args))
 			return (NULL);
 		think(philo);
-		if (philo->args->dead == 1 || philo->stop == 1 || all_eate(philo->args))
+		if (philo->args->dead == 1 || philo->stop == 1 || all_ate(philo->args))
 			return (NULL);
 	}
 	philo->stop = 1;

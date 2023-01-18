@@ -6,24 +6,25 @@
 /*   By: franmart <franmart@student.42malaga.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/17 15:17:52 by franmart          #+#    #+#             */
-/*   Updated: 2023/01/17 15:37:55 by franmart         ###   ########.fr       */
+/*   Updated: 2023/01/18 13:03:24 by franmart         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/philo.h"
 
-void	dead_philo(t_args *args, t_philo *philo)
+void	dead_philo(t_args *args, t_philo *philo, int mute)
 {
 	int	i;
 
 	i = -1;
 	philo->args->dead = 1;
-	print_action(philo, DEAD_STR);
+	if (mute == 0)
+		print_action(philo, DEAD_STR);
 	while (++i < args->n_philos)
 		args->philos[i].stop = 1;
 }
 
-int	all_eate(t_args *args)
+int	all_ate(t_args *args)
 {
 	int	i;
 
@@ -52,7 +53,12 @@ void	*philo_waiter(void *arg)
 		{
 			if (ft_now() - philo[i].time_last_meal > args->die_time)
 			{
-				dead_philo(args, philo);
+				dead_philo(args, philo, 0);
+				return (NULL);
+			}
+			else if (all_ate(args) == 1)
+			{
+				dead_philo(args, philo, 1);
 				return (NULL);
 			}
 		}
