@@ -6,7 +6,7 @@
 /*   By: franmart <franmart@student.42malaga.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/11 09:55:27 by franmart          #+#    #+#             */
-/*   Updated: 2023/01/17 15:40:27 by franmart         ###   ########.fr       */
+/*   Updated: 2023/01/18 08:02:50 by franmart         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,6 @@ typedef struct s_args
 	int				die_time;
 	int				eat_time;
 	int				sleep_time;
-	int				think_time;
 	int				dead;
 	int				eat_limit;
 	time_t			start_time;

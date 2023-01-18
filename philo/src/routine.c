@@ -6,7 +6,7 @@
 /*   By: franmart <franmart@student.42malaga.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/17 09:46:43 by franmart          #+#    #+#             */
-/*   Updated: 2023/01/17 15:36:59 by franmart         ###   ########.fr       */
+/*   Updated: 2023/01/18 07:48:57 by franmart         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,6 @@ void	*philo_routine(void *arg)
 	t_philo	*philo;
 
 	philo = (t_philo *)arg;
-	philo->start_time = ft_now();
 	philo->time_last_meal = ft_now();
 	while (philo->args->dead == 0)
 	{
@@ -44,7 +43,7 @@ void	print_action(t_philo *philo, char *action)
 {
 	pthread_mutex_lock(&philo->args->lock_print);
 	printf("%ld %d %s",\
-		ft_now() - philo->start_time, philo->philo_id + 1, action);
+		ft_now() - philo->args->start_time, philo->philo_id + 1, action);
 	pthread_mutex_unlock(&philo->args->lock_print);
 }
 
@@ -60,7 +59,7 @@ void	eat(t_philo *philo)
 {
 	print_action(philo, EAT_STR);
 	philo->eat_n_times++;
-	philo->time_last_meal = ft_now() - philo->start_time;
+	philo->time_last_meal = ft_now();
 	usleep(philo->args->eat_time * 1000);
 	pthread_mutex_unlock(philo->l_fork);
 	pthread_mutex_unlock(philo->r_fork);
