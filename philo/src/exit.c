@@ -6,7 +6,7 @@
 /*   By: franmart <franmart@student.42malaga.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/18 11:05:33 by franmart          #+#    #+#             */
-/*   Updated: 2023/01/18 12:24:20 by franmart         ###   ########.fr       */
+/*   Updated: 2023/01/18 12:47:19 by franmart         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,5 @@ void	free_philo(t_args *args)
 {
 	free(args->philos);
 	free(args->thread_ids);
-	if (args->n_philos == 1)
-		free(args->forks);
+	free(args->forks);
 }
