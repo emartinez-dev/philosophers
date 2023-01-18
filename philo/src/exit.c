@@ -6,7 +6,7 @@
 /*   By: franmart <franmart@student.42malaga.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/18 11:05:33 by franmart          #+#    #+#             */
-/*   Updated: 2023/01/18 12:06:46 by franmart         ###   ########.fr       */
+/*   Updated: 2023/01/18 12:24:20 by franmart         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,11 +18,7 @@ void	end_mutex(t_args *args)
 
 	i = -1;
 	while (++i < args->n_philos)
-	{
-		pthread_mutex_unlock(&args->forks[i]);
 		pthread_mutex_destroy(&args->forks[i]);
-	}
-	pthread_mutex_unlock(&args->lock_print);
 	pthread_mutex_destroy(&args->lock_print);
 }
 
