@@ -6,7 +6,7 @@
 #    By: franmart <franmart@student.42malaga.com>   +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/01/11 08:35:59 by franmart          #+#    #+#              #
-#    Updated: 2023/01/17 15:37:22 by franmart         ###   ########.fr        #
+#    Updated: 2023/01/18 11:09:15 by franmart         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -24,6 +24,7 @@ _SRC =	main.c\
 		ft_itoa.c\
 		routine.c\
 		waiter.c\
+		exit.c\
 		init.c
 
 SRC = ${addprefix ${SRC_DIR}, ${_SRC}}
