@@ -6,7 +6,7 @@
 /*   By: franmart <franmart@student.42malaga.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/17 09:46:43 by franmart          #+#    #+#             */
-/*   Updated: 2023/01/18 07:48:57 by franmart         ###   ########.fr       */
+/*   Updated: 2023/01/18 11:41:40 by franmart         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,9 +50,11 @@ void	print_action(t_philo *philo, char *action)
 void	take_forks(t_philo *philo)
 {
 	pthread_mutex_lock(philo->l_fork);
-	print_action(philo, FORK_STR);
+	if (philo->stop == 0)
+		print_action(philo, FORK_STR);
 	pthread_mutex_lock(philo->r_fork);
-	print_action(philo, FORK_STR);
+	if (philo->stop == 0)
+		print_action(philo, FORK_STR);
 }
 
 void	eat(t_philo *philo)
