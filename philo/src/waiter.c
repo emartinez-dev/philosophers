@@ -6,7 +6,7 @@
 /*   By: franmart <franmart@student.42malaga.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/17 15:17:52 by franmart          #+#    #+#             */
-/*   Updated: 2023/01/18 13:03:24 by franmart         ###   ########.fr       */
+/*   Updated: 2023/01/19 10:53:11 by franmart         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ void	*philo_waiter(void *arg)
 	args = (t_args *)arg;
 	philo = args->philos;
 	i = 0;
-	while (philo[i].stop == 0)
+	while (args->dead == 0)
 	{
 		i = -1;
 		while (++i < args->n_philos)
