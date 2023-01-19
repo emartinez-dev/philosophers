@@ -6,7 +6,7 @@
 /*   By: franmart <franmart@student.42malaga.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/16 10:27:11 by franmart          #+#    #+#             */
-/*   Updated: 2023/01/19 13:06:50 by franmart         ###   ########.fr       */
+/*   Updated: 2023/01/19 13:11:54 by franmart         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,14 +15,12 @@
 void	init_forks(t_args *args)
 {
 	int				i;
-	pthread_mutex_t	*forks;
 
 	i = -1;
-	forks = malloc(sizeof(pthread_mutex_t) * args->n_philos);
+	args->forks = malloc(sizeof(pthread_mutex_t) * args->n_philos);
 	while (++i < args->n_philos)
-		pthread_mutex_init(&forks[i], NULL);
+		pthread_mutex_init(&args->forks[i], NULL);
 	pthread_mutex_init(&args->lock_print, NULL);
-	args->forks = forks;
 }
 
 void	init_philos(t_args *args)
