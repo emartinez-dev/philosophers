@@ -6,7 +6,7 @@
 /*   By: franmart <franmart@student.42malaga.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/16 10:27:11 by franmart          #+#    #+#             */
-/*   Updated: 2023/01/18 11:46:05 by franmart         ###   ########.fr       */
+/*   Updated: 2023/01/19 10:40:27 by franmart         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,7 @@ void	init_threads(t_args *args)
 	pthread_t	waiter;
 
 	i = -1;
-	args->thread_ids = malloc(sizeof(int) * args->n_philos);
+	args->thread_ids = malloc(sizeof(pthread_t) * args->n_philos);
 	while (++i < args->n_philos)
 	{
 		pthread_create(&args->thread_ids[i], 0, philo_routine, &args->philos[i]);
