@@ -6,7 +6,7 @@
 /*   By: franmart <franmart@student.42malaga.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/16 10:27:11 by franmart          #+#    #+#             */
-/*   Updated: 2023/01/19 10:40:27 by franmart         ###   ########.fr       */
+/*   Updated: 2023/01/19 13:06:50 by franmart         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ void	init_philos(t_args *args)
 	{
 		philos[i].philo_id = i;
 		philos[i].start_time = 0;
-		philos[i].time_last_meal = 0;
+		philos[i].time_last_meal = ft_now();
 		philos[i].stop = 0;
 		philos[i].eat_n_times = 0;
 		philos[i].l_fork = &args->forks[i];
@@ -69,8 +69,6 @@ void	end_threads(t_args *args)
 	int	i;
 
 	i = -1;
-	if (args->n_philos == 1)
-		pthread_mutex_unlock(&args->forks[0]);
 	while (++i < args->n_philos)
 		pthread_join(args->thread_ids[i], NULL);
 }
