@@ -6,7 +6,7 @@
 /*   By: franmart <franmart@student.42malaga.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/11 10:00:25 by franmart          #+#    #+#             */
-/*   Updated: 2023/01/21 13:35:44 by franmart         ###   ########.fr       */
+/*   Updated: 2023/01/21 20:35:29 by franmart         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,6 @@ int	main(int argc, char **argv)
 		return (1);
 	parse_args(argc, argv, &args);
 	init_philos(&args);
-	//printf("%d %d %d %d %d\n", args.n_philos, args.die_time, args.eat_time, args.sleep_time, args.eat_limit);
 	init_threads(&args);
 	end_threads(&args);
 	end_mutex(&args);

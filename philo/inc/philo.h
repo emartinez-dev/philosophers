@@ -6,7 +6,7 @@
 /*   By: franmart <franmart@student.42malaga.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/11 09:55:27 by franmart          #+#    #+#             */
-/*   Updated: 2023/01/21 15:24:16 by franmart         ###   ########.fr       */
+/*   Updated: 2023/01/21 20:37:59 by franmart         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,11 +33,10 @@ typedef struct s_philo
 	int				philo_id;
 	time_t			time_last_meal;
 	time_t			start_time;
-	int				eat_n_times;
+	int				eat_count;
 	int				stop;
 	pthread_mutex_t l_fork;
 	pthread_mutex_t *r_fork;
-	pthread_mutex_t eat_check;
 	t_args			*args;
 }	t_philo;
 
@@ -53,7 +52,6 @@ typedef struct s_args
 	time_t			start_time;
 	pthread_t		*thread_ids;
 	pthread_mutex_t	print_lock;
-	pthread_mutex_t	dead_lock;
 	t_philo			*philos;
 }	t_args;
 
