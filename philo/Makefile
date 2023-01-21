@@ -6,22 +6,23 @@
 #    By: franmart <franmart@student.42malaga.com>   +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/01/11 08:35:59 by franmart          #+#    #+#              #
-#    Updated: 2023/01/18 11:09:15 by franmart         ###   ########.fr        #
+#    Updated: 2023/01/21 18:12:01 by franmart         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = philo
 
-CC = gcc -g3
-FLAGS = -Wall -Wextra -Werror
+CC = gcc -g3 #-fsanitize=thread
+FLAGS = -Wall -Wextra -Werror #-lasan
 INCLUDES = -pthread
 RM = rm -rf
 
 SRC_DIR = src/
 _SRC =	main.c\
-		utils.c\
 		parser.c\
-		ft_itoa.c\
+		parsing_utils.c\
+		parsing_utils2.c\
+		philo_utils.c\
 		routine.c\
 		waiter.c\
 		exit.c\

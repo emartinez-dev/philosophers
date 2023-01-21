@@ -6,7 +6,7 @@
 /*   By: franmart <franmart@student.42malaga.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/17 09:46:43 by franmart          #+#    #+#             */
-/*   Updated: 2023/01/21 15:24:16 by franmart         ###   ########.fr       */
+/*   Updated: 2023/01/21 18:12:23 by franmart         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,14 +36,6 @@ void	*philo_routine(void *arg)
 	}
 	philo->stop = 1;
 	return (NULL);
-}
-
-void	print_action(t_philo *philo, char *action)
-{
-	pthread_mutex_lock(&philo->args->print_lock);
-	printf("%ld %d %s",\
-		ft_now() - philo->args->start_time, philo->philo_id + 1, action);
-	pthread_mutex_unlock(&philo->args->print_lock);
 }
 
 void	take_forks(t_philo *philo)
