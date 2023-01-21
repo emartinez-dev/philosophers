@@ -6,7 +6,7 @@
 /*   By: franmart <franmart@student.42malaga.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/17 15:17:52 by franmart          #+#    #+#             */
-/*   Updated: 2023/01/19 16:21:26 by franmart         ###   ########.fr       */
+/*   Updated: 2023/01/21 15:22:34 by franmart         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,8 +58,7 @@ void	*philo_waiter(void *arg)
 		i = -1;
 		while (++i < args->n_philos)
 		{
-			pthread_mutex_lock(&philo[i].eat_check);
-			if (ft_now() - philo[i].time_last_meal > args->die_time || pthread_mutex_unlock(&philo[i].eat_check))
+			if (ft_now() - philo[i].time_last_meal > args->die_time)
 			{
 				dead_philo(philo, 0);
 				return (NULL);

@@ -6,7 +6,7 @@
 /*   By: franmart <franmart@student.42malaga.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/11 09:55:27 by franmart          #+#    #+#             */
-/*   Updated: 2023/01/21 15:14:01 by franmart         ###   ########.fr       */
+/*   Updated: 2023/01/21 15:24:16 by franmart         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,8 @@ typedef struct s_args
 	int				eat_limit;
 	time_t			start_time;
 	pthread_t		*thread_ids;
-	pthread_mutex_t	lock_print;
+	pthread_mutex_t	print_lock;
+	pthread_mutex_t	dead_lock;
 	t_philo			*philos;
 }	t_args;
 

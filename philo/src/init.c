@@ -6,7 +6,7 @@
 /*   By: franmart <franmart@student.42malaga.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/16 10:27:11 by franmart          #+#    #+#             */
-/*   Updated: 2023/01/21 13:36:31 by franmart         ###   ########.fr       */
+/*   Updated: 2023/01/21 15:25:14 by franmart         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,8 @@ void	init_philos(t_args *args)
 		philos[i].args = args;
 		pthread_mutex_init(&philos[i].eat_check, 0);
 	}
-	pthread_mutex_init(&args->lock_print, NULL);
+	pthread_mutex_init(&args->print_lock, NULL);
+	pthread_mutex_init(&args->dead_lock, NULL);
 	args->dead = 0;
 	args->start_time = ft_now();
 	args->philos = philos;
