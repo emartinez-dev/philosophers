@@ -6,7 +6,7 @@
 /*   By: franmart <franmart@student.42malaga.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/17 09:46:43 by franmart          #+#    #+#             */
-/*   Updated: 2023/01/19 16:12:38 by franmart         ###   ########.fr       */
+/*   Updated: 2023/01/21 13:35:30 by franmart         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,17 +48,15 @@ void	print_action(t_philo *philo, char *action)
 
 void	take_forks(t_philo *philo)
 {
-	if (philo->l_fork == philo->r_fork)
-		philo->stop = 1;
-	pthread_mutex_lock(philo->l_fork);
+	pthread_mutex_lock(&philo->l_fork);
 	print_action(philo, FORK_STR);
-	if (philo->stop == 0)
+	if (philo->stop == 1)
+		pthread_mutex_unlock(&philo->l_fork);
+	else
 	{
 		pthread_mutex_lock(philo->r_fork);
 		print_action(philo, FORK_STR);
 	}
-	else
-		pthread_mutex_unlock(philo->l_fork);
 }
 
 void	eat(t_philo *philo)
@@ -67,9 +65,9 @@ void	eat(t_philo *philo)
 	pthread_mutex_lock(&philo->eat_check);
 	philo->eat_n_times++;
 	philo->time_last_meal = ft_now();
-	pthread_mutex_unlock(&philo->eat_check);
 	usleep(philo->args->eat_time * 1000);
-	pthread_mutex_unlock(philo->l_fork);
+	pthread_mutex_unlock(&philo->eat_check);
+	pthread_mutex_unlock(&philo->l_fork);
 	pthread_mutex_unlock(philo->r_fork);
 }
 

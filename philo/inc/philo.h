@@ -6,7 +6,7 @@
 /*   By: franmart <franmart@student.42malaga.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/11 09:55:27 by franmart          #+#    #+#             */
-/*   Updated: 2023/01/19 15:42:46 by franmart         ###   ########.fr       */
+/*   Updated: 2023/01/21 15:14:01 by franmart         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,12 +19,6 @@
 # include <unistd.h>
 # include <sys/time.h>
 # include <string.h>
-
-# define SLEEP 0
-# define THINK 1
-# define EAT 2
-# define FORK 3
-# define DEAD 4
 
 # define SLEEP_STR "is sleeping\n"
 # define THINK_STR "is thinking\n"
@@ -41,7 +35,7 @@ typedef struct s_philo
 	time_t			start_time;
 	int				eat_n_times;
 	int				stop;
-	pthread_mutex_t *l_fork;
+	pthread_mutex_t l_fork;
 	pthread_mutex_t *r_fork;
 	pthread_mutex_t eat_check;
 	t_args			*args;
@@ -57,7 +51,6 @@ typedef struct s_args
 	int				dead;
 	int				eat_limit;
 	time_t			start_time;
-	pthread_mutex_t	*forks;
 	pthread_t		*thread_ids;
 	pthread_mutex_t	lock_print;
 	t_philo			*philos;
@@ -65,7 +58,6 @@ typedef struct s_args
 
 int				secure_atoi(char *atoi_nbr);
 void			parse_args(int argc, char **argv, t_args *philo);
-void			init_forks(t_args *args);
 void			init_philos(t_args *args);
 void			init_threads(t_args *args);
 void			end_threads(t_args *args);

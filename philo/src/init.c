@@ -6,22 +6,11 @@
 /*   By: franmart <franmart@student.42malaga.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/16 10:27:11 by franmart          #+#    #+#             */
-/*   Updated: 2023/01/19 16:11:19 by franmart         ###   ########.fr       */
+/*   Updated: 2023/01/21 13:36:31 by franmart         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/philo.h"
-
-void	init_forks(t_args *args)
-{
-	int				i;
-
-	i = -1;
-	args->forks = malloc(sizeof(pthread_mutex_t) * args->n_philos);
-	while (++i < args->n_philos)
-		pthread_mutex_init(&args->forks[i], NULL);
-	pthread_mutex_init(&args->lock_print, NULL);
-}
 
 void	init_philos(t_args *args)
 {
@@ -37,11 +26,12 @@ void	init_philos(t_args *args)
 		philos[i].time_last_meal = ft_now();
 		philos[i].stop = 0;
 		philos[i].eat_n_times = 0;
-		philos[i].l_fork = &args->forks[i];
-		philos[i].r_fork = &args->forks[(i + 1) % args->n_philos];
+		pthread_mutex_init(&philos[i].l_fork, 0);
+		philos[i].r_fork = &philos[(i + 1) % args->n_philos].l_fork;
 		philos[i].args = args;
 		pthread_mutex_init(&philos[i].eat_check, 0);
 	}
+	pthread_mutex_init(&args->lock_print, NULL);
 	args->dead = 0;
 	args->start_time = ft_now();
 	args->philos = philos;
