@@ -6,7 +6,7 @@
 /*   By: franmart <franmart@student.42malaga.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/17 09:46:43 by franmart          #+#    #+#             */
-/*   Updated: 2023/01/22 13:04:37 by franmart         ###   ########.fr       */
+/*   Updated: 2023/01/22 13:27:52 by franmart         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,7 @@ void	ph_eat(t_philo *philo)
 	pthread_mutex_lock(&philo->eating);
 	print_action(philo, EAT_STR);
 	philo->eat_count++;
-	philo->time_last_meal = ft_now() + philo->args->eat_time;
+	philo->time_last_meal = ft_now();
 	pthread_mutex_unlock(&philo->eating);
 	ft_sleep(philo->args->eat_time);
 	pthread_mutex_unlock(&philo->l_fork);
