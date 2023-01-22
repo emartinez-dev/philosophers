@@ -6,7 +6,7 @@
 /*   By: franmart <franmart@student.42malaga.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/11 09:55:27 by franmart          #+#    #+#             */
-/*   Updated: 2023/01/22 12:17:15 by franmart         ###   ########.fr       */
+/*   Updated: 2023/01/22 13:47:13 by franmart         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,7 +79,7 @@ void			free_philo(t_args *args);
 
 /* utils.c */
 time_t			ft_now(void);
-void			ft_sleep(time_t ms);
+void			ft_sleep(time_t ms, t_args *args);
 void			print_action(t_philo *philo, char *action);
 
 /* parser.c */

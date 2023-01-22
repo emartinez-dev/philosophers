@@ -6,7 +6,7 @@
 /*   By: franmart <franmart@student.42malaga.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/21 15:36:32 by franmart          #+#    #+#             */
-/*   Updated: 2023/01/22 13:03:19 by franmart         ###   ########.fr       */
+/*   Updated: 2023/01/22 13:46:57 by franmart         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,11 +35,11 @@ void	print_action(t_philo *philo, char *action)
 }
 
 /* ft_sleep: an attempt to fix usleep inconsistences */
-void	ft_sleep(time_t ms)
+void	ft_sleep(time_t ms, t_args *args)
 {
 	time_t	start_time;
 
 	start_time = ft_now();
-	while (ft_now() - start_time < ms)
+	while (ft_now() - start_time < ms && !check_anyone_finish(args))
 		usleep(1000);
 }
