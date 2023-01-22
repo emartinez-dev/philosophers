@@ -6,7 +6,7 @@
 /*   By: franmart <franmart@student.42malaga.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/11 10:00:25 by franmart          #+#    #+#             */
-/*   Updated: 2023/01/22 10:23:18 by franmart         ###   ########.fr       */
+/*   Updated: 2023/01/22 11:16:19 by franmart         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,8 @@ int	main(int argc, char **argv)
 
 	if (argc != 5 && argc != 6)
 		return (1);
-	parse_args(argc, argv, &args);
+	if (parse_args(argc, argv, &args))
+		return (1);
 	init_philos(&args);
 	init_threads(&args);
 	end_threads(&args);
