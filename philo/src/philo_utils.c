@@ -6,7 +6,7 @@
 /*   By: franmart <franmart@student.42malaga.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/21 15:36:32 by franmart          #+#    #+#             */
-/*   Updated: 2023/01/22 12:10:23 by franmart         ###   ########.fr       */
+/*   Updated: 2023/01/22 12:59:31 by franmart         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,5 +40,5 @@ void	ft_sleep(time_t ms)
 
 	start_time = ft_now();
 	while (ft_now() - start_time < ms)
-		usleep(25);
+		usleep(1000);
 }

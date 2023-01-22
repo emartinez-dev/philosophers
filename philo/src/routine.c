@@ -6,7 +6,7 @@
 /*   By: franmart <franmart@student.42malaga.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/17 09:46:43 by franmart          #+#    #+#             */
-/*   Updated: 2023/01/22 11:37:19 by franmart         ###   ########.fr       */
+/*   Updated: 2023/01/22 12:58:11 by franmart         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,12 +17,25 @@ void	*philo_routine(void *arg)
 	t_philo	*philo;
 
 	philo = (t_philo *)arg;
-	while (!check_anyone_finish(philo->args))
+	if (philo->philo_id % 2)
 	{
-		ph_take_forks(philo);
-		ph_eat(philo);
-		ph_sleep(philo);
-		ph_think(philo);
+		while (!check_anyone_finish(philo->args))
+		{
+			ph_sleep(philo);
+			ph_take_forks(philo);
+			ph_eat(philo);
+			ph_think(philo);
+		}
+	}
+	else
+	{
+		while (!check_anyone_finish(philo->args))
+		{
+			ph_take_forks(philo);
+			ph_eat(philo);
+			ph_sleep(philo);
+			ph_think(philo);
+		}
 	}
 	return (NULL);
 }
