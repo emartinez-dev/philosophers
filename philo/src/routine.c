@@ -6,7 +6,7 @@
 /*   By: franmart <franmart@student.42malaga.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/17 09:46:43 by franmart          #+#    #+#             */
-/*   Updated: 2023/01/22 10:54:43 by franmart         ###   ########.fr       */
+/*   Updated: 2023/01/22 11:37:19 by franmart         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ void	ph_take_forks(t_philo *philo)
 	if (philo->args->n_philos == 1)
 	{
 		pthread_mutex_lock(&philo->args->finish_lock);
-		usleep(philo->args->die_time * 1000);
+		ft_sleep(philo->args->die_time);
 		philo->args->finish = 1;
 		pthread_mutex_unlock(&philo->args->finish_lock);
 		print_action(philo, DEAD_STR);
@@ -51,7 +51,7 @@ void	ph_eat(t_philo *philo)
 	philo->eat_count++;
 	philo->time_last_meal = ft_now() + philo->args->eat_time;
 	pthread_mutex_unlock(&philo->eating);
-	usleep(philo->args->eat_time * 1000);
+	ft_sleep(philo->args->eat_time);
 	pthread_mutex_unlock(&philo->l_fork);
 	if (philo->args->n_philos != 1)
 		pthread_mutex_unlock(philo->r_fork);
@@ -60,7 +60,7 @@ void	ph_eat(t_philo *philo)
 void	ph_sleep(t_philo *philo)
 {
 	print_action(philo, SLEEP_STR);
-	usleep(philo->args->sleep_time * 1000);
+	ft_sleep(philo->args->sleep_time);
 }
 
 void	ph_think(t_philo *philo)
