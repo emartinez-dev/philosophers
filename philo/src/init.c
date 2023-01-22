@@ -6,19 +6,21 @@
 /*   By: franmart <franmart@student.42malaga.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/16 10:27:11 by franmart          #+#    #+#             */
-/*   Updated: 2023/01/22 11:30:26 by franmart         ###   ########.fr       */
+/*   Updated: 2023/01/22 12:28:42 by franmart         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/philo.h"
 
-void	init_philos(t_args *args)
+int	init_philos(t_args *args)
 {
 	int		i;
 	t_philo	*philos;
 
 	i = -1;
 	philos = malloc(sizeof(t_philo) * args->n_philos);
+	if (philos == NULL)
+		return (2);
 	while (++i < args->n_philos)
 	{
 		philos[i].philo_id = i;
@@ -35,21 +37,27 @@ void	init_philos(t_args *args)
 	args->finish = 0;
 	args->start_time = ft_now();
 	args->philos = philos;
+	return (0);
 }
 
-void	init_threads(t_args *args)
+int	init_threads(t_args *args)
 {
 	int			i;
 	pthread_t	waiter;
 
 	i = -1;
 	args->thread_ids = malloc(sizeof(pthread_t) * args->n_philos);
+	if (args->thread_ids == NULL)
+		return (1);
 	while (++i < args->n_philos)
 	{
-		pthread_create(&args->thread_ids[i], 0, \
-			philo_routine, &args->philos[i]);
+		if (pthread_create(&args->thread_ids[i], 0, \
+			philo_routine, &args->philos[i]))
+			return (1);
 		usleep(10);
 	}
-	pthread_create(&waiter, 0, philo_waiter, (void *)args);
+	if (pthread_create(&waiter, 0, philo_waiter, (void *)args))
+		return (1);
 	pthread_join(waiter, 0);
+	return (0);
 }

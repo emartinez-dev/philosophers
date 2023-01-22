@@ -6,7 +6,7 @@
 /*   By: franmart <franmart@student.42malaga.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/11 10:00:25 by franmart          #+#    #+#             */
-/*   Updated: 2023/01/22 11:16:19 by franmart         ###   ########.fr       */
+/*   Updated: 2023/01/22 12:18:49 by franmart         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,8 +20,10 @@ int	main(int argc, char **argv)
 		return (1);
 	if (parse_args(argc, argv, &args))
 		return (1);
-	init_philos(&args);
-	init_threads(&args);
+	if (init_philos(&args))
+		return (2);
+	if (init_threads(&args))
+		return (3);
 	end_threads(&args);
 	end_mutex(&args);
 	free_philo(&args);

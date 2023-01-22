@@ -6,7 +6,7 @@
 /*   By: franmart <franmart@student.42malaga.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/11 09:55:27 by franmart          #+#    #+#             */
-/*   Updated: 2023/01/22 11:33:17 by franmart         ###   ########.fr       */
+/*   Updated: 2023/01/22 12:17:15 by franmart         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,8 +56,8 @@ typedef struct s_args
 }	t_args;
 
 /* init.c */
-void			init_philos(t_args *args);
-void			init_threads(t_args *args);
+int				init_philos(t_args *args);
+int				init_threads(t_args *args);
 
 /* routine.c */
 void			*philo_routine(void *arg);
