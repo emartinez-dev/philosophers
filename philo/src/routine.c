@@ -6,7 +6,7 @@
 /*   By: franmart <franmart@student.42malaga.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/17 09:46:43 by franmart          #+#    #+#             */
-/*   Updated: 2023/01/22 13:56:14 by franmart         ###   ########.fr       */
+/*   Updated: 2023/01/22 14:11:55 by franmart         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ void	ph_take_forks(t_philo *philo)
 	if (philo->args->n_philos == 1)
 	{
 		pthread_mutex_lock(&philo->args->finish_lock);
-		ft_sleep(philo->args->die_time, philo->args);
+		usleep(philo->args->die_time * 1000);
 		philo->args->finish = 1;
 		pthread_mutex_unlock(&philo->args->finish_lock);
 		print_action(philo, DEAD_STR);
@@ -61,6 +61,8 @@ void	ph_take_forks(t_philo *philo)
 
 void	ph_eat(t_philo *philo)
 {
+	if (philo->args->n_philos == 1)
+		return ;
 	pthread_mutex_lock(&philo->eating);
 	print_action(philo, EAT_STR);
 	philo->eat_count++;
@@ -74,6 +76,8 @@ void	ph_eat(t_philo *philo)
 
 void	ph_sleep(t_philo *philo)
 {
+	if (philo->args->n_philos == 1)
+		return ;
 	print_action(philo, SLEEP_STR);
 	ft_sleep(philo->args->sleep_time, philo->args);
 }
