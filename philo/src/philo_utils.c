@@ -6,7 +6,7 @@
 /*   By: franmart <franmart@student.42malaga.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/21 15:36:32 by franmart          #+#    #+#             */
-/*   Updated: 2023/01/22 12:59:31 by franmart         ###   ########.fr       */
+/*   Updated: 2023/01/22 13:03:19 by franmart         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,7 @@ void	print_action(t_philo *philo, char *action)
 	pthread_mutex_unlock(&philo->args->print_lock);
 }
 
+/* ft_sleep: an attempt to fix usleep inconsistences */
 void	ft_sleep(time_t ms)
 {
 	time_t	start_time;

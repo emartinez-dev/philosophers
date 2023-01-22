@@ -6,12 +6,13 @@
 /*   By: franmart <franmart@student.42malaga.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/17 15:17:52 by franmart          #+#    #+#             */
-/*   Updated: 2023/01/22 11:08:37 by franmart         ###   ########.fr       */
+/*   Updated: 2023/01/22 13:08:35 by franmart         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/philo.h"
 
+/* A thread that checks if all the philos have eaten or if anyone has died */
 void	*philo_waiter(void *arg)
 {
 	t_args	*args;
@@ -60,6 +61,7 @@ int	all_ate(t_args *args)
 	return (status);
 }
 
+/* safely read the finish flag */
 int	check_anyone_finish(t_args *args)
 {
 	int	status;
@@ -72,6 +74,7 @@ int	check_anyone_finish(t_args *args)
 	return (status);
 }
 
+/* if the given philo has died, sets finish flag as one */
 int	check_philo_died(t_philo *philo)
 {
 	int	status;

@@ -6,12 +6,13 @@
 /*   By: franmart <franmart@student.42malaga.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/17 09:46:43 by franmart          #+#    #+#             */
-/*   Updated: 2023/01/22 12:58:11 by franmart         ###   ########.fr       */
+/*   Updated: 2023/01/22 13:04:37 by franmart         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/philo.h"
 
+/* fix the initial deadlock making odd eating while even are sleeping */
 void	*philo_routine(void *arg)
 {
 	t_philo	*philo;
@@ -40,6 +41,7 @@ void	*philo_routine(void *arg)
 	return (NULL);
 }
 
+/* add limit case when there is only one fork on the table */
 void	ph_take_forks(t_philo *philo)
 {
 	pthread_mutex_lock(&philo->l_fork);
