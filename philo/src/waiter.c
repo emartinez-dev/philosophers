@@ -6,69 +6,86 @@
 /*   By: franmart <franmart@student.42malaga.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/17 15:17:52 by franmart          #+#    #+#             */
-/*   Updated: 2023/01/21 15:22:34 by franmart         ###   ########.fr       */
+/*   Updated: 2023/01/22 11:08:37 by franmart         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/philo.h"
 
-void	dead_philo(t_philo *philo, int mute)
+void	*philo_waiter(void *arg)
 {
-	int	i;
+	t_args	*args;
+	int		i;
 
-	i = -1;
-	philo->args->dead = 1;
-	if (mute == 0)
-		print_action(philo, DEAD_STR);
-	while (++i < philo->args->n_philos)
-		philo->args->philos[i].stop = 1;
+	args = (t_args *)arg;
+	while (!check_anyone_finish(args))
+	{
+		i = -1;
+		while (++i < args->n_philos)
+		{
+			if (check_philo_died(&args->philos[i]))
+			{
+				print_action(&args->philos[i], DEAD_STR);
+				return (NULL);
+			}
+			else if (all_ate(args))
+				return (NULL);
+		}
+	}
+	return (NULL);
 }
 
 int	all_ate(t_args *args)
 {
 	int	i;
+	int	status;
 
 	i = -1;
+	status = 1;
 	if (args->eat_limit == -1)
 		return (0);
 	while (++i < args->n_philos)
 	{
-		pthread_mutex_lock(&args->philos[i].eat_check);
-		if (args->philos[i].eat_n_times < args->eat_limit)
-		{
-			pthread_mutex_unlock(&args->philos[i].eat_check);
-			return (0);
-		}
-		pthread_mutex_unlock(&args->philos[i].eat_check);
+		pthread_mutex_lock(&args->philos[i].eating);
+		if (args->philos[i].eat_count < args->eat_limit)
+			status = 0;
+		pthread_mutex_unlock(&args->philos[i].eating);
 	}
-	return (1);
+	if (status)
+	{
+		pthread_mutex_lock(&args->finish_lock);
+		args->finish = 1;
+		pthread_mutex_unlock(&args->finish_lock);
+	}
+	return (status);
 }
 
-void	*philo_waiter(void *arg)
+int	check_anyone_finish(t_args *args)
 {
-	t_philo	*philo;
-	t_args	*args;
-	int		i;
+	int	status;
 
-	args = (t_args *)arg;
-	philo = args->philos;
-	i = 0;
-	while (args->dead == 0)
+	status = 0;
+	pthread_mutex_lock(&args->finish_lock);
+	if (args->finish == 1)
+		status = 1;
+	pthread_mutex_unlock(&args->finish_lock);
+	return (status);
+}
+
+int	check_philo_died(t_philo *philo)
+{
+	int	status;
+
+	status = 0;
+	pthread_mutex_lock(&philo->eating);
+	if (ft_now() - philo->time_last_meal > philo->args->die_time)
+		status = 1;
+	pthread_mutex_unlock(&philo->eating);
+	if (status == 1)
 	{
-		i = -1;
-		while (++i < args->n_philos)
-		{
-			if (ft_now() - philo[i].time_last_meal > args->die_time)
-			{
-				dead_philo(philo, 0);
-				return (NULL);
-			}
-			else if (all_ate(args) == 1)
-			{
-				dead_philo(philo, 1);
-				return (NULL);
-			}
-		}
+		pthread_mutex_lock(&philo->args->finish_lock);
+		philo->args->finish = 1;
+		pthread_mutex_unlock(&philo->args->finish_lock);
 	}
-	return (NULL);
+	return (status);
 }

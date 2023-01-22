@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   utils.c                                            :+:      :+:    :+:   */
+/*   parsing_utils2.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: franmart <franmart@student.42malaga.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/11 10:15:05 by franmart          #+#    #+#             */
-/*   Updated: 2023/01/21 15:37:05 by franmart         ###   ########.fr       */
+/*   Updated: 2023/01/22 11:21:37 by franmart         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,9 +73,8 @@ int	secure_atoi(char *atoi_nbr)
 		atoi_nbr++;
 	if (ft_strncmp(atoi_nbr, str_number, ft_strlen(atoi_nbr)) != 0)
 	{
-		printf("Error: Input %s is not a valid integer.\n", atoi_nbr);
 		free(str_number);
-		exit(1);
+		return (-1);
 	}
 	free(str_number);
 	return (number);

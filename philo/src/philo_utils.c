@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   utils2.c                                           :+:      :+:    :+:   */
+/*   philo_utils.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: franmart <franmart@student.42malaga.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/21 15:36:32 by franmart          #+#    #+#             */
-/*   Updated: 2023/01/21 15:36:57 by franmart         ###   ########.fr       */
+/*   Updated: 2023/01/22 11:38:46 by franmart         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,10 +21,32 @@ time_t	ft_now(void)
 	return (1000 * now.tv_sec + now.tv_usec / 1000);
 }
 
+time_t	ft_now_usec(void)
+{
+	struct timeval	now;
+
+	gettimeofday(&now, NULL);
+	return (10e6 * now.tv_sec + now.tv_usec);
+}
+
 void	print_action(t_philo *philo, char *action)
 {
+	int		dead_action;
+	time_t	timestamp;
+
+	dead_action = !ft_strncmp(action, DEAD_STR, ft_strlen(action));
 	pthread_mutex_lock(&philo->args->print_lock);
-	printf("%ld %d %s",\
-		ft_now() - philo->args->start_time, philo->philo_id + 1, action);
+	timestamp = ft_now() - philo->args->start_time;
+	if (!check_anyone_finish(philo->args) || dead_action)
+		printf("%ld %d %s", timestamp, philo->philo_id + 1, action);
 	pthread_mutex_unlock(&philo->args->print_lock);
+}
+
+void	ft_sleep(time_t ms)
+{
+	time_t	start_time;
+
+	start_time = ft_now_usec();
+	while (ft_now_usec() - start_time < ms * 1000)
+		usleep(10);
 }

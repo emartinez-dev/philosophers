@@ -6,7 +6,7 @@
 /*   By: franmart <franmart@student.42malaga.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/17 09:46:43 by franmart          #+#    #+#             */
-/*   Updated: 2023/01/21 18:12:23 by franmart         ###   ########.fr       */
+/*   Updated: 2023/01/22 11:37:19 by franmart         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,59 +17,53 @@ void	*philo_routine(void *arg)
 	t_philo	*philo;
 
 	philo = (t_philo *)arg;
-	while (philo->args->dead == 0)
+	while (!check_anyone_finish(philo->args))
 	{
-		if (philo->args->dead == 1 || philo->stop == 1 || all_ate(philo->args))
-			return (NULL);
-		take_forks(philo);
-		if (philo->args->dead == 1 || philo->stop == 1 || all_ate(philo->args))
-			return (NULL);
-		eat(philo);
-		if (philo->args->dead == 1 || philo->stop == 1 || all_ate(philo->args))
-			return (NULL);
+		ph_take_forks(philo);
+		ph_eat(philo);
 		ph_sleep(philo);
-		if (philo->args->dead == 1 || philo->stop == 1 || all_ate(philo->args))
-			return (NULL);
-		think(philo);
-		if (philo->args->dead == 1 || philo->stop == 1 || all_ate(philo->args))
-			return (NULL);
+		ph_think(philo);
 	}
-	philo->stop = 1;
 	return (NULL);
 }
 
-void	take_forks(t_philo *philo)
+void	ph_take_forks(t_philo *philo)
 {
 	pthread_mutex_lock(&philo->l_fork);
 	print_action(philo, FORK_STR);
-	if (philo->stop == 1)
-		pthread_mutex_unlock(&philo->l_fork);
-	else
+	if (philo->args->n_philos == 1)
 	{
-		pthread_mutex_lock(philo->r_fork);
-		print_action(philo, FORK_STR);
+		pthread_mutex_lock(&philo->args->finish_lock);
+		ft_sleep(philo->args->die_time);
+		philo->args->finish = 1;
+		pthread_mutex_unlock(&philo->args->finish_lock);
+		print_action(philo, DEAD_STR);
+		return ;
 	}
+	pthread_mutex_lock(philo->r_fork);
+	print_action(philo, FORK_STR);
 }
 
-void	eat(t_philo *philo)
+void	ph_eat(t_philo *philo)
 {
+	pthread_mutex_lock(&philo->eating);
 	print_action(philo, EAT_STR);
-	pthread_mutex_lock(&philo->eat_check);
-	philo->eat_n_times++;
-	philo->time_last_meal = ft_now();
-	usleep(philo->args->eat_time * 1000);
-	pthread_mutex_unlock(&philo->eat_check);
+	philo->eat_count++;
+	philo->time_last_meal = ft_now() + philo->args->eat_time;
+	pthread_mutex_unlock(&philo->eating);
+	ft_sleep(philo->args->eat_time);
 	pthread_mutex_unlock(&philo->l_fork);
-	pthread_mutex_unlock(philo->r_fork);
+	if (philo->args->n_philos != 1)
+		pthread_mutex_unlock(philo->r_fork);
 }
 
 void	ph_sleep(t_philo *philo)
 {
 	print_action(philo, SLEEP_STR);
-	usleep(philo->args->sleep_time * 1000);
+	ft_sleep(philo->args->sleep_time);
 }
 
-void	think(t_philo *philo)
+void	ph_think(t_philo *philo)
 {
 	print_action(philo, THINK_STR);
 }
