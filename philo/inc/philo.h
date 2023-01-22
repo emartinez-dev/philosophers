@@ -6,7 +6,7 @@
 /*   By: franmart <franmart@student.42malaga.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/11 09:55:27 by franmart          #+#    #+#             */
-/*   Updated: 2023/01/22 10:23:50 by franmart         ###   ########.fr       */
+/*   Updated: 2023/01/22 11:09:48 by franmart         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,35 +46,46 @@ typedef struct s_args
 	int				die_time;
 	int				eat_time;
 	int				sleep_time;
-	int				dead;
+	int				finish;
 	int				eat_limit;
 	time_t			start_time;
 	pthread_t		*thread_ids;
 	pthread_mutex_t	print_lock;
-	pthread_mutex_t	dead_lock;
+	pthread_mutex_t	finish_lock;
 	t_philo			*philos;
 }	t_args;
 
-int				secure_atoi(char *atoi_nbr);
-void			parse_args(int argc, char **argv, t_args *philo);
+/* init.c */
 void			init_philos(t_args *args);
 void			init_threads(t_args *args);
-void			end_threads(t_args *args);
-void			*philo_routine(void *arg);
-void			think(t_philo *philo);
-void			eat(t_philo *philo);
-void			ph_sleep(t_philo *philo);
-void			take_forks(t_philo *philo);
-void			print_action(t_philo *philo, char *action);
-int				all_ate(t_args *args);
-void			dead_philo(t_philo *philo, int mute);
-void			*philo_waiter(void *arg);
-void			free_philo(t_args *args);
-void			end_mutex(t_args *args);
-int				check_philo_died(t_philo *philo);
-int				check_anyone_died(t_args *args);
 
+/* routine.c */
+void			*philo_routine(void *arg);
+void			ph_take_forks(t_philo *philo);
+void			ph_eat(t_philo *philo);
+void			ph_sleep(t_philo *philo);
+void			ph_think(t_philo *philo);
+
+/* waiter.c */
+void			*philo_waiter(void *arg);
+int				all_ate(t_args *args);
+int				check_anyone_finish(t_args *args);
+int				check_philo_died(t_philo *philo);
+
+/* exit.c */
+void			end_mutex(t_args *args);
+void			end_threads(t_args *args);
+void			free_philo(t_args *args);
+
+/* utils.c */
 time_t			ft_now(void);
+void			print_action(t_philo *philo, char *action);
+
+/* parser.c */
+void			parse_args(int argc, char **argv, t_args *philo);
+int				secure_atoi(char *atoi_nbr);
+
+/* parser utils */
 int				ft_atoi(const char *nptr);
 char			*ft_itoa(int n);
 unsigned int	ft_strlen(const char *s);

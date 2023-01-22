@@ -6,7 +6,7 @@
 /*   By: franmart <franmart@student.42malaga.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/21 15:36:32 by franmart          #+#    #+#             */
-/*   Updated: 2023/01/22 10:21:45 by franmart         ###   ########.fr       */
+/*   Updated: 2023/01/22 11:07:23 by franmart         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,12 +23,13 @@ time_t	ft_now(void)
 
 void	print_action(t_philo *philo, char *action)
 {
+	int		dead_action;
+	time_t	timestamp;
+
+	dead_action = !ft_strncmp(action, DEAD_STR, ft_strlen(action));
 	pthread_mutex_lock(&philo->args->print_lock);
-	if (!check_anyone_died(philo->args) || \
-		ft_strncmp(action, DEAD_STR, ft_strlen(action)) == 0)
-	{
-		printf("%ld %d %s", \
-			ft_now() - philo->args->start_time, philo->philo_id + 1, action);
-	}
+	timestamp = ft_now() - philo->args->start_time;
+	if (!check_anyone_finish(philo->args) || dead_action)
+		printf("%ld %d %s", timestamp, philo->philo_id + 1, action);
 	pthread_mutex_unlock(&philo->args->print_lock);
 }

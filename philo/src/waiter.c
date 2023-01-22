@@ -6,34 +6,69 @@
 /*   By: franmart <franmart@student.42malaga.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/17 15:17:52 by franmart          #+#    #+#             */
-/*   Updated: 2023/01/22 10:04:42 by franmart         ###   ########.fr       */
+/*   Updated: 2023/01/22 11:08:37 by franmart         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/philo.h"
 
-void	dead_philo(t_philo *philo, int mute)
+void	*philo_waiter(void *arg)
 {
-	(void) mute;
-	print_action(philo, DEAD_STR);
-	return ;
+	t_args	*args;
+	int		i;
+
+	args = (t_args *)arg;
+	while (!check_anyone_finish(args))
+	{
+		i = -1;
+		while (++i < args->n_philos)
+		{
+			if (check_philo_died(&args->philos[i]))
+			{
+				print_action(&args->philos[i], DEAD_STR);
+				return (NULL);
+			}
+			else if (all_ate(args))
+				return (NULL);
+		}
+	}
+	return (NULL);
 }
 
 int	all_ate(t_args *args)
 {
-	(void) args;
-	return (0);
+	int	i;
+	int	status;
+
+	i = -1;
+	status = 1;
+	if (args->eat_limit == -1)
+		return (0);
+	while (++i < args->n_philos)
+	{
+		pthread_mutex_lock(&args->philos[i].eating);
+		if (args->philos[i].eat_count < args->eat_limit)
+			status = 0;
+		pthread_mutex_unlock(&args->philos[i].eating);
+	}
+	if (status)
+	{
+		pthread_mutex_lock(&args->finish_lock);
+		args->finish = 1;
+		pthread_mutex_unlock(&args->finish_lock);
+	}
+	return (status);
 }
 
-int	check_anyone_died(t_args *args)
+int	check_anyone_finish(t_args *args)
 {
 	int	status;
 
 	status = 0;
-	pthread_mutex_lock(&args->dead_lock);
-	if (args->dead == 1)
+	pthread_mutex_lock(&args->finish_lock);
+	if (args->finish == 1)
 		status = 1;
-	pthread_mutex_unlock(&args->dead_lock);
+	pthread_mutex_unlock(&args->finish_lock);
 	return (status);
 }
 
@@ -48,30 +83,9 @@ int	check_philo_died(t_philo *philo)
 	pthread_mutex_unlock(&philo->eating);
 	if (status == 1)
 	{
-		pthread_mutex_lock(&philo->args->dead_lock);
-		philo->args->dead = 1;
-		pthread_mutex_unlock(&philo->args->dead_lock);
+		pthread_mutex_lock(&philo->args->finish_lock);
+		philo->args->finish = 1;
+		pthread_mutex_unlock(&philo->args->finish_lock);
 	}
 	return (status);
-}
-
-void	*philo_waiter(void *arg)
-{
-	t_args	*args;
-	int		i;
-
-	args = (t_args *)arg;
-	while (!check_anyone_died(args))
-	{
-		i = -1;
-		while (++i < args->n_philos)
-		{
-			if (check_philo_died(&args->philos[i]))
-			{
-				dead_philo(&args->philos[i], 0);
-				return (NULL);
-			}
-		}
-	}
-	return (NULL);
 }
