@@ -6,7 +6,7 @@
 /*   By: franmart <franmart@student.42malaga.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/11 09:55:27 by franmart          #+#    #+#             */
-/*   Updated: 2023/01/21 20:37:59 by franmart         ###   ########.fr       */
+/*   Updated: 2023/01/22 10:23:50 by franmart         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,20 +26,19 @@
 # define FORK_STR "has taken a fork\n"
 # define DEAD_STR "died\n"
 
-typedef struct s_args t_args;
+typedef struct s_args	t_args;
 
 typedef struct s_philo
 {
 	int				philo_id;
 	time_t			time_last_meal;
-	time_t			start_time;
 	int				eat_count;
 	int				stop;
-	pthread_mutex_t l_fork;
-	pthread_mutex_t *r_fork;
+	pthread_mutex_t	eating;
+	pthread_mutex_t	l_fork;
+	pthread_mutex_t	*r_fork;
 	t_args			*args;
 }	t_philo;
-
 
 typedef struct s_args
 {
@@ -52,6 +51,7 @@ typedef struct s_args
 	time_t			start_time;
 	pthread_t		*thread_ids;
 	pthread_mutex_t	print_lock;
+	pthread_mutex_t	dead_lock;
 	t_philo			*philos;
 }	t_args;
 
@@ -71,10 +71,13 @@ void			dead_philo(t_philo *philo, int mute);
 void			*philo_waiter(void *arg);
 void			free_philo(t_args *args);
 void			end_mutex(t_args *args);
+int				check_philo_died(t_philo *philo);
+int				check_anyone_died(t_args *args);
 
 time_t			ft_now(void);
 int				ft_atoi(const char *nptr);
 char			*ft_itoa(int n);
 unsigned int	ft_strlen(const char *s);
+int				ft_strncmp(const char *s1, const char *s2, unsigned int n);
 
 #	endif

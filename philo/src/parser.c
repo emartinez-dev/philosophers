@@ -6,7 +6,7 @@
 /*   By: franmart <franmart@student.42malaga.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/11 10:20:58 by franmart          #+#    #+#             */
-/*   Updated: 2023/01/16 11:16:15 by franmart         ###   ########.fr       */
+/*   Updated: 2023/01/22 10:22:04 by franmart         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,5 +28,4 @@ void	parse_args(int argc, char **argv, t_args *args)
 		if (args->eat_limit < 1)
 			exit(1);
 	}
-	//printf("%d %d %d %d %d\n", args->n_philos, args->die_time, args->eat_time, args->sleep_time, args->eat_limit);
 }
