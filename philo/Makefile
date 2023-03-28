@@ -6,7 +6,7 @@
 #    By: franmart <franmart@student.42malaga.com>   +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/01/11 08:35:59 by franmart          #+#    #+#              #
-#    Updated: 2023/01/22 12:00:52 by franmart         ###   ########.fr        #
+#    Updated: 2023/03/28 12:14:52 by franmart         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -32,7 +32,7 @@ SRC = ${addprefix ${SRC_DIR}, ${_SRC}}
 OBJ = ${SRC:.c=.o}
 
 ${NAME}: ${OBJ}
-	$(CC) $(OBJ) -o $(NAME) $(INCLUDES)
+	$(CC) $(FLAGS) $(OBJ) -o $(NAME) $(INCLUDES)
 	@echo "$(NAME) compiled!"
 
 %.o: %.c
