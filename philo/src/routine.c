@@ -6,7 +6,7 @@
 /*   By: franmart <franmart@student.42malaga.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/17 09:46:43 by franmart          #+#    #+#             */
-/*   Updated: 2023/01/22 14:11:55 by franmart         ###   ########.fr       */
+/*   Updated: 2023/03/28 11:59:06 by franmart         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,6 +52,7 @@ void	ph_take_forks(t_philo *philo)
 		usleep(philo->args->die_time * 1000);
 		philo->args->finish = 1;
 		pthread_mutex_unlock(&philo->args->finish_lock);
+		pthread_mutex_unlock(&philo->l_fork);
 		print_action(philo, DEAD_STR);
 		return ;
 	}
